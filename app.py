@@ -29,17 +29,17 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 def GPT_response(text):
     # 接收回應
     # response = openai.Completion.create(model="gpt-3.5-turbo-0125",  temperature=0.5, max_tokens=500, messages=[{"role": "system", "content": "You are a helpful assistant."},{"role": "user", "content": text}])
-    #response = openai.ChatCompletion.create(
-    #    model = "gpt-3.5-turbo-0125",
-    #    messages=[
-    #    {"role": "system", "content": "You are a helpful assistant."},
-    #    {"role": "user", "content":  text},
-    #    ],
-    #    temperature = 0.5,    
-    #    max_tokens = 500,
-    #)
-    response = openai.Completion.create(model="gpt-3.5-turbo-0125", prompt=text, temperature=0.5, max_tokens=500)
-    print(response)
+    response = client.chat.completions.create(
+      model="gpt-3.5-turbo-0125",
+      response_format={ "type": "json_object" },
+      messages=[
+        {"role": "system", "content": "You are a helpful assistant designed to output JSON."},
+        {"role": "user", "content": "Who won the world series in 2020?"}
+      ]
+    )
+    print(response.choices[0].message.content)
+    
+    #print(response)
     # 重組回應
     answer = response['choices'][0]['text'].replace('。','')
     return answer

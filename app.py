@@ -27,7 +27,6 @@ def handle_message(event):
     text1=event.message.text
     response = openai.ChatCompletion.create(
         messages=[
-            {"role": "system", "content": "You are a knowledgeable history teacher."},
             {"role": "user", "content": text1}
         ],
         model="gpt-3.5-turbo-0125",
